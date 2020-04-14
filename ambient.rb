@@ -1,17 +1,19 @@
-define :random_melody do |note|
+##| functions
+
+define :random_melody do |keynote|
   use_synth :hollow
   with_fx :reverb, mix: 0.7 do
-    if note == :C3
+    if keynote == :C3
       3.times do
         play choose([:C2, :Eb2, :G2, :Bb2, :C2, :Eb3, :G3, :Bb3, :C4, :Eb4, :G4, :Bb4])
         sleep 0.2
       end
-    elsif note == :Eb3
+    elsif keynote == :Eb3
       3.times do
         play choose([:Eb2, :G2, :Bb2, :Eb3, :G3, :Bb3, :Eb4, :G4, :Bb4])
         sleep 0.2
       end
-    elsif note == :G3
+    elsif keynote == :G3
       3.times do
         play choose([:G2, :Bb2, :D2, :G3, :Bb3, :D4, :G4, :Bb4, :D5])
         sleep 0.2
@@ -25,12 +27,16 @@ define :random_melody do |note|
   end
 end
 
+##| tick
+
 in_thread do
   loop do
     cue :tick
     sleep 1.6
   end
 end
+
+##| drums
 
 in_thread do
   loop do
@@ -55,23 +61,15 @@ end
 in_thread do
   loop do
     sync :tick
-    sample :perc_snap, amp: 0.2
-    sleep 0.2
-    sample :perc_snap, amp: 0.2
-    sleep 0.2
-    sample :perc_snap, amp: 0.2
-    sleep 0.2
-    sample :perc_snap, amp: 0.2
-    sleep 0.2
-    sample :perc_snap, amp: 0.2
-    sleep 0.2
-    sample :perc_snap, amp: 0.2
-    sleep 0.2
-    sample :perc_snap, amp: 0.2
-    sleep 0.2
+    7. times do
+      sample :perc_snap, amp: 0.2
+      sleep 0.2
+    end
     sample :perc_snap, amp: 0.2
   end
 end
+
+##| harmony
 
 in_thread do
   loop do
@@ -92,6 +90,8 @@ in_thread do
   end
 end
 
+##| melody
+
 in_thread do
   loop do
     sync :tick
@@ -99,9 +99,9 @@ in_thread do
   end
 end
 
+##| random noises
+
 loop do
   sample :ambi_dark_woosh, amp: 0.2
   sleep 7
 end
-
-
